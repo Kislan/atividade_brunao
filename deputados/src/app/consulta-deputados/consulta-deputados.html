@@ -1,5 +1,42 @@
-<h1>Deputados</h1>
-@for(dep of deputados(); track dep.id){
-    <p>{{dep.nome}}</p>
-    <p><img [src]="dep.urlFoto" [alt]="dep.nome"></p>
-}
+<h1 class="titulo">DEPUTADOS</h1>
+
+<form [formGroup]="formBusca" (ngSubmit)="buscar()" class="form-busca">
+
+    <input
+        type="text"
+        formControlName="nome"
+        placeholder="Digite o nome do deputado">
+
+    <button type="submit">Buscar</button>
+
+    @if (formBusca.get('nome')?.invalid && formBusca.get('nome')?.touched) {
+        <div class="erro">
+            @if (formBusca.get('nome')?.hasError('required')) {
+                <p>O nome é obrigatório.</p>
+            }
+
+            @if (formBusca.get('nome')?.hasError('minlength')) {
+                <p>Digite pelo menos 2 caracteres.</p>
+            }
+        </div>
+    }
+
+    @if (buscaRealizada() && deputados().length === 0) {
+        <div>
+            <p class="erro">Não foi possível encontrar nenhum deputado com o nome informado.</p>
+        </div>
+    }
+
+</form>
+
+<div class="deputados">
+    @for(dep of deputados(); track dep.id) {
+        <div class="card-deputado">
+            <p><img [src]="dep.urlFoto"></p>
+            <p><b>{{dep.nome}}</b></p>
+            <p><b>{{dep.siglaPartido}} -
+                {{dep.siglaUf}}
+            </b></p>
+        </div>
+    }
+</div>

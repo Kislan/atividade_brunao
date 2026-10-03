@@ -1,14 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DeputadoResponse } from './deputado';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Service()
 export class DeputadoService {
-    readonly API = 'https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome';
-    readonly #http = inject(HttpClient);
+    readonly API = 'https://dadosabertos.camara.leg.br/api/v2'
+    readonly #http = inject(HttpClient)
 
     obterTodos(): Observable<DeputadoResponse> {
-        return this.#http.get<DeputadoResponse>(`${this.API}/deputados?ordem=ASC&ordenarPor=nome`);
+        return this.#http.get<DeputadoResponse>(
+            `${this.API}/deputados?ordem=ASC&ordenarPor=nome`)
+    }
+
+    obterDeputadosPorNome(nome: string): Observable<DeputadoResponse> {
+        return this.#http.get<DeputadoResponse>(
+            `${this.API}/deputados?nome=${nome}`)
     }
 }

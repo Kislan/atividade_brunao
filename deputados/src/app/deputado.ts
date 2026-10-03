@@ -1,16 +1,15 @@
 export type Deputado = {
-      "id": number,
-      "uri": string,
-      "nome": string,
-      "siglaPartido": string,
-      "uriPartido": string,
-      "siglaUf": string,
-      "idLegislatura": number,
-      "urlFoto": string,
-      "email": string
-} 
+      id: number,
+      uri: string,
+      nome: string,
+      siglaPartido: string,
+      uriPartido: string,
+      siglaUf: string,
+      idLegislatura: number,
+      urlFoto: string,
+      email: string
+}
 
 export type DeputadoResponse = {
-    dados: Deputado[],
-
+    dados: Deputado[]
 }
